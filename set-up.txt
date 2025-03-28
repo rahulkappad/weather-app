@@ -1,0 +1,3 @@
+npx create-next-app@latest - For installing all packages related Node
+npm install react-icons --save
+for icons need to give import codes
