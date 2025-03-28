@@ -1,3 +1,14 @@
 npx create-next-app@latest - For installing all packages related Node
 npm install react-icons --save
+https://react-icons
 for icons need to give import codes
+npm i tailwind-merge clsx
+for api : openweathermap.org
+need to login 
+responce
+need to conver json to datatype for typescript
+need to create a react query
+npm i @tanstack/react-query
+npm i axios
+date fns
+npm i date-fns

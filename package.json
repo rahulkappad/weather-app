@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.70.0",
+    "axios": "^1.8.4",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
