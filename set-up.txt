@@ -12,3 +12,5 @@ npm i @tanstack/react-query
 npm i axios
 date fns
 npm i date-fns
+https://jotai.org/
+npm install jotai
