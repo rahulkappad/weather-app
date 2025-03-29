@@ -85,7 +85,7 @@ export default function Home() {
     queryKey: ['repoData'],
     queryFn: async ()=>
     {
-      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
+      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=canada&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`)
       return data;
     }
   })
