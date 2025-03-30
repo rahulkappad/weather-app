@@ -28,6 +28,7 @@ export default function RootLayout({
   const queryClient = new QueryClient();
   return (
     <html lang="en">
+        <title>Weather-App</title>
       <QueryClientProvider client={queryClient}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>    
