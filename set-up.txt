@@ -14,3 +14,4 @@ date fns
 npm i date-fns
 https://jotai.org/
 npm install jotai
+SkeletonLoader for loading the screen while searching

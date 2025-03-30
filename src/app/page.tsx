@@ -15,7 +15,7 @@ import Weatherdetails from "./components/WeatherDetail";
 import { ConvertWindSpeed } from "./utils/ConvertWindSpeed";
 import ForecastWeatherDetail from "./components/ForecastWeatherDetail";
 import { useAtom } from "jotai";
-import { placeAtom } from "./atom";
+import { loadingCityAtom, placeAtom } from "./atom";
 import { useEffect } from "react";
 
 
@@ -91,6 +91,7 @@ type Coordinates = {
 export default function Home() {
 
   const[place, setPlace] = useAtom(placeAtom) 
+  const[ loadingCity,] = useAtom(loadingCityAtom)
   
   const { isPending, error, data ,refetch} = useQuery<WeatherData>({
     queryKey: ['repoData'],
@@ -108,7 +109,7 @@ export default function Home() {
 
   const firstData = data?.list[0];
 
-  console.log('data',data)
+  
 
   const uniqueDates = [
     ...new Set(
@@ -129,12 +130,13 @@ export default function Home() {
   if (isPending) return <div className="flex items-center min-h-screen justify-center">
     <p className="animate-bounce">Loading...</p>
   </div>
-  
   return (
    <div className="flext flex-col gap-2 bg-gray-100 min-h-screen">
-    <Navbar/>
+    <Navbar location={data?.city.name}/>
     <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
       {/* Today data */}
+      {loadingCity ? ( <SkeletonLoader/> ):
+      <> 
       <section className="space-y-4">
         <div className="space-y-2">
           <h2 className="flex gap-1 text-2xl items-end">
@@ -213,7 +215,58 @@ export default function Home() {
        />
              ))}
       </section>
+      </>
+      }
     </main>
    </div>
   )
 }
+
+
+const SkeletonLoader: React.FC = () => {
+  return (
+    <div className="flex flex-col gap-2 bg-gray-100 min-h-screen animate-pulse">
+      {/* Navbar Placeholder */}
+      <div className="h-12 bg-gray-300 w-full" />
+      
+      <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
+        {/* Today Data Skeleton */}
+        <section className="space-y-4">
+          <div className="space-y-2">
+            <div className="h-8 bg-gray-300 w-40 rounded" />
+            <div className="bg-gray-300 h-48 w-full rounded-lg" />
+            <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+              {Array.from({ length: 5 }).map((_, i: number) => (
+                <div key={i} className="flex flex-col justify-between gap-2 items-center text-xs font-semibold">
+                  <div className="h-4 w-12 bg-gray-300 rounded" />
+                  <div className="h-10 w-10 bg-gray-300 rounded-full" />
+                  <div className="h-4 w-8 bg-gray-300 rounded" />
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="flex gap-4">
+            {/* Left Section */}
+            <div className="flex flex-col items-center p-4 bg-gray-300 rounded-lg h-32 w-32" />
+            {/* Right Section */}
+            <div className="flex-grow bg-gray-300 h-32 rounded-lg" />
+          </div>
+        </section>
+
+        {/* 7 Days Forecast Skeleton */}
+        <section className="flex w-full flex-col gap-4">
+          <div className="h-8 w-40 bg-gray-300 rounded" />
+          {Array.from({ length: 7 }).map((_, i: number) => (
+            <div key={i} className="flex justify-between items-center h-20 bg-gray-300 rounded-lg w-full p-4">
+              <div className="h-6 w-24 bg-gray-400 rounded" />
+              <div className="h-10 w-10 bg-gray-400 rounded-full" />
+              <div className="h-6 w-16 bg-gray-400 rounded" />
+            </div>
+          ))}
+        </section>
+      </main>
+    </div>
+  );
+};
+
